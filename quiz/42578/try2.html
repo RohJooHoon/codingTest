@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>위장</title>
+</head>
+<body>
+<script>
+    console.log(solution([["yellowhat", "headgear"], ["bluesunglasses", "eyewear"], ["green_turban", "headgear"]]));
+    console.log(solution([["crowmask", "face"], ["bluesunglasses", "face"], ["smoky_makeup", "face"]]));
+    console.log(solution([["원1", "원"], ["세모3", "세모"], ["원2", "원"], ["세모1", "세모"], ["네모1", "네모"], ["세모2", "세모"]]));
+    console.log(solution([["원1", "원"], ["세모3", "세모"], ["원2", "원"], ["세모1", "세모"], ["네모1", "네모"], ["세모2", "세모"], ["마름모1", "마름모"], ["마름모2", "마름모"]]));
+    function solution(clothes) {
+        let answer = 0;
+        let dataObject = {};
+        let dataArray = [];
+        let maxLength = 0;
+        let keepLength = 0;
+
+        // 동일 타입 length 객체로 정리
+        clothes.forEach(function (value, index) {
+            if (dataObject[value[1]]) {
+                dataObject[value[1]]++;
+            } else {
+                dataObject[value[1]] = 1;
+            }
+        })
+        console.log("dataObject : ", dataObject);
+
+        // 배열로 재정리
+        for (let dataObjectKey in dataObject) {
+            dataArray.push(dataObject[dataObjectKey]);
+            maxLength += dataObject[dataObjectKey];
+        }
+        console.log("dataArray : ", dataArray);
+
+        // 경우의 수 계산
+        console.log("maxLength : ", maxLength);
+        answer += maxLength;
+        dataArray.forEach(function (value, index) {
+            if (dataArray.length > 1) {
+                keepLength += value;
+                const remainLength = maxLength - keepLength;
+                for (let i = 0; i < index + 1; i++) {
+                    answer += dataArray[i] * remainLength;
+                    console.log("index : ", index, dataArray[i] * remainLength);
+                }
+            }
+        })
+        return answer;
+    }
+    /* 정확성: 10, 효율성: 0, 합계: 10 */
+    /* 접근 방식: 두 배열 이중 반복문으로 돌며 완주자 배열중 동일 이름을 지우며 최종적으로 남는 값을 출력 */
+    /* 반복문이 많은건 알겠는데 정확성 10점, 효율정0점은 왜지?? 내 생각으로는 정확성 통과는 해야 하는것 아닌가? */
+    /* 기존 방식으로 하려면 끝도없음 내부 반복을 별도 함수로 뽑아서 (N * logN) 처리  https://cider.tistory.com/9  */
+
+</script>
+</body>
+</html>
