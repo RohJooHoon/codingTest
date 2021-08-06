@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>영어 끝말잇기</title>
+</head>
+<body>
+<script>
+    console.log(solution(3, ["tank", "kick", "know", "wheel", "land", "dream", "mother", "robot", "tank"]));
+    console.log(solution(5, ["hello", "observe", "effect", "take", "either", "recognize", "encourage", "ensure", "establish", "hang", "gather", "refer", "reference", "estimate", "executive"]));
+    console.log(solution(2, ["hello", "one", "even", "never", "now", "world", "draw"]));
+    function solution(n, words) {
+        const set = new Set();
+        let answer = [0,0];
+        let prevLast = words[0][0];
+        for (const [index, value] of words.entries()) {
+            const remainder = index % n + 1; // 나머지
+            const result = parseInt(index / n) + 1; // 몫
+            const first = value[0]; // 첫글자
+            const last = value[value.length - 1]; // 마지막글자
+            set.add(value);
+            if (prevLast == first && index + 1 == set.size) {
+                prevLast = last;
+            } else {
+                return answer = [remainder, result];
+            }
+        }
+        return answer;
+    }
+    /* 정확성: 100, 합계: 100 */
+    /* 접근 방식: 문제가 없는경우 [0,0]를 그대로 출력하며,
+    첫글자와 마지막 글자를 확인하여 일치하지 않을 경우와,
+    중복을 무시하는 리스트set의 길이와 현재 길이를 비교하며 같지않은경우 중복으로,
+    각각 오류로 간주하여 번호(나머지), 회차(몫)을 answer에 담아 return */
+</script>
+</body>
+</html>

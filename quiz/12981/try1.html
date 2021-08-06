@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>영어 끝말잇기</title>
+</head>
+<body>
+<script>
+    console.log(solution(3, ["tank", "kick", "know", "wheel", "land", "dream", "mother", "robot", "tank"]));
+    console.log(solution(5, ["hello", "observe", "effect", "take", "either", "recognize", "encourage", "ensure", "establish", "hang", "gather", "refer", "reference", "estimate", "executive"]));
+    console.log(solution(2, ["hello", "one", "even", "never", "now", "world", "draw"]));
+    function solution(n, words) {
+        let answer = [0,0];
+        let prevLast = words[0][0];
+        let historyList = [];
+        for (const [index, value] of words.entries()) {
+            const remainder = index % n + 1; // 나머지
+            const result = parseInt(index / n) + 1; // 몫
+            const first = value[0]; // 첫글자
+            const last = value[value.length - 1]; // 마지막글자
+            if (historyList.includes(value)) {
+                return answer = [remainder, result];
+            } else {
+                historyList.push(value);
+            }
+
+            if (prevLast == first) {
+                prevLast = last;
+            } else {
+                return answer = [remainder, result];
+            }
+        }
+        return answer;
+    }
+    /* 정확성: 10, 효율성: 0, 합계: 10 */
+    /* 접근 방식: 두 배열 이중 반복문으로 돌며 완주자 배열중 동일 이름을 지우며 최종적으로 남는 값을 출력 */
+    /* 반복문이 많은건 알겠는데 정확성 10점, 효율정0점은 왜지?? 내 생각으로는 정확성 통과는 해야 하는것 아닌가? */
+</script>
+</body>
+</html>
