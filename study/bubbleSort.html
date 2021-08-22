@@ -1,0 +1,53 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>버블정렬</title>
+</head>
+<body>
+<script>
+    console.log(solution([7,4,5,1,3]));
+    function solution(array) {
+        let answer = [];
+        let change = false;
+
+        rotate(array, array.length);
+        function rotate(nowArray, length) {
+            change = false;
+            for (let i = 0; i < length; i++) {
+                const nowNum = nowArray[i];
+                const nextNum = nowArray[i + 1];
+
+                if (nowNum > nextNum) {
+                    nowArray[i + 1] = nowNum;
+                    nowArray[i] = nextNum;
+                    change = true;
+                }
+
+                if (i == length - 1) {
+                    if (change) {
+                        rotate(nowArray, length -1);
+                    } else {
+                        answer = nowArray;
+                    }
+                }
+            }
+        }
+
+        return answer;
+    }
+    /* 정확성: 100, 합계: 100, 시간복잡도: O(N) ~ O(N^2) */
+    /* 접근 방식: 버블정렬은 배열을 순회하며 큰값을 한칸씩 뒤로 밀어내며 정렬시키는 방식, 안정정렬
+                0회전 : 4,3,2,1,5
+                1회전 : 3,2,1,4,5
+                2회전 : 2,1,3,4,5
+                3회전 : 1,2,3,4,5
+                4회전 : 1,2,3,4,5
+                순회중에 변경되는 값이 없으면 return 하여, 모두 정렬 되어있는 배열은 O(N)까지 시간 복잡도가 낮아지며
+                모든 항목을 정렬해야하는 경우 O(N^2)까지 시간 복잡도가 높아짐
+    */
+</script>
+</body>
+</html>
