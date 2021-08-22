@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>K번째수</title>
+</head>
+<body>
+<script>
+    console.log(solution([1, 5, 2, 6, 3, 7, 4], [[2, 5, 3], [4, 4, 1], [1, 7, 3]]));
+    function solution(array, commands) {
+        let answer = [];
+        for (let command of commands) {
+            sliceSort(command[0], command[1], command[2]);
+        }
+        function sliceSort(i, j, k) {
+            answer.push(array.slice(i - 1, j).sort((a,b) => a - b)[k - 1]);
+        }
+        return answer;
+    }
+    /* 정확성: 100, 합계: 100, 시간복잡도: O(N) */
+    /* 접근 방식:  */
+</script>
+</body>
+</html>
