@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>가장 큰 수</title>
+</head>
+<body>
+<script>
+    console.log(solution([6, 10, 2])); // "6210"
+    console.log(solution([3, 5, 30, 9, 34])); // "9534330"
+    console.log(solution([0, 3, 30, 34, 5, 9])); // "95343300"
+
+    console.log(solution([198, 19])); // "19819" 19198
+    console.log(solution([0,0,0])); // "0"
+    console.log(solution([3853, 385])); // "3833,383" < "383,3833" "짧"
+    console.log(solution([8383, 838])); // "8383,838" > "838,8383" "긴"
+    console.log(solution([3833, 383])); // "3833,383" < "383,3833" "짧"
+    console.log(solution([8383, 838])); // "8383,838" > "838,8383" "긴"
+    console.log(solution([38, 383]));
+    console.log(solution([83, 838]));
+    console.log(solution([383, 38]));
+    console.log(solution([838, 83]));
+    function solution(numbers) {
+        let answer = '';
+        numbers.sort(function(a, b) {
+            let stringA = String(a);
+            let stringB = String(b);
+            if (stringA === stringB) {
+                return 0;
+            } if (stringA.length != stringB.length && stringA[0] == stringB[0]) {
+                if (stringA.length < stringB.length) {
+                    let stringACopy = stringA;
+                    for (let i = 0; i < stringB.length - stringA.length; i++) {
+                        stringACopy += stringA[0];
+                    }
+                    if (stringACopy == stringB) {
+                        if (stringB[0] > stringB[1]) {
+                            return 1;
+                        } else {
+                            return -1;
+                        }
+                    } else if (stringACopy < stringB) {
+                        return 1;
+                    } else if (stringACopy > stringB) {
+                        return -1;
+                    }
+                } else if (stringA.length > stringB.length) {
+                    let stringBCopy = stringB;
+                    for (let i = 0; i < stringA.length - stringB.length; i++) {
+                        stringBCopy += stringB[0];
+                    }
+                    if (stringBCopy == stringA) {
+                        if (stringA[0] > stringA[1]) {
+                            return -1;
+                        } else {
+                            return 1;
+                        }
+                    } else if (stringBCopy < stringA) {
+                        return -1;
+                    } else if (stringBCopy > stringA) {
+                        return 1;
+                    }
+                } else {
+                    return 0;
+                }
+            } else {
+                if (stringA < stringB) {
+                    return 1;
+                } else if (stringA > stringB) {
+                    return -1;
+                }
+            }
+        });
+
+        const sum = numbers.reduce((a,b) => (a+b));
+        if (sum === 0) {
+            return '0';
+        }
+
+        answer = numbers.join('');
+        return answer;
+    }
+    /* 정확성: 100, 합계: 100, 시간복잡도: O(N) */
+    /* 접근 방식: 키포인트 = 383, 38 같은 경우 비교시 2번 값을 38 + 숫자 첫번째 자리로 치환 후 계산 하며
+    * 치환 후 비교한 값이 같을경우 숫자 둘째 자리가 큰 경우 로 비교하교 교체 유무 판단 */
+</script>
+</body>
+</html>
